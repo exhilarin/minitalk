@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilyas-guney <ilyas-guney@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 02:17:07 by ilyas-guney       #+#    #+#             */
-/*   Updated: 2025/03/04 03:56:26 by ilyas-guney      ###   ########.fr       */
+/*   Updated: 2025/03/04 03:56:18 by ilyas-guney      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 void	bit_receiver(int signal, siginfo_t *info, void *context)
 {
@@ -23,7 +23,7 @@ void	bit_receiver(int signal, siginfo_t *info, void *context)
 	else if(signal == SIGUSR1)
 		c = (c << 1) | 1;
 	i++;
-	if (i == 7)
+	if (i == 8)
 	{
 		ft_printf("%c", c);
 		i = 0;
@@ -34,16 +34,16 @@ void	bit_receiver(int signal, siginfo_t *info, void *context)
 
 int main()
 {
-	struct sigaction	sa;
-	pid_t				server_pid;
+	struct sigaction    sa;
+	pid_t               server_pid;
 
-	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = bit_receiver;
+	sa.sa_sigaction = &bit_receiver;
+	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 		return (ft_printf("sigaction() call failed.\n"), 1);
-	server_pid = getppid();
+	server_pid = get_pid();
 	ft_printf("Server PID: %d\n", server_pid);
 	while (1)
 		pause();

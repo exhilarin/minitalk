@@ -1,27 +1,45 @@
 NAME = minitalk
-SRCS = client.c server.c
+SRCS = server.c client.c
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-PRINTF_PATH = ./ft_printf
 LIBFT_PATH = ./libft
-PRINTF = $(PRINTF_PATH)/libftprintf.a
 LIBFT = $(LIBFT_PATH)/libft.a
-OBJS = $(SRCS:.c=.o)
+PRINTF_PATH = ./ft_printf
+PRINTF = $(PRINTF_PATH)/libftprintf.a
 
-all: $(PRINTF) $(LIBFT) $(NAME)
+SRCS_SERVER = server.c
+SRCS_CLIENT = client.c
+OBJS_SERVER = $(SRCS_SERVER:.c=.o)
+OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)
 
-$(NAME): $(LIBFT) $(OBJS) $(PRINTF)
-	$(CC) $(CFLAGS) -g $(LIBFT) $(OBJS) $(PRINTF) -o $(NAME)
+
+SRCS_SERVER_BONUS = server_bonus.c
+SRCS_CLIENT_BONUS = client_bonus.c
+OBJS_SERVER_BONUS = $(SRCS_SERVER_BONUS:.c=.o)
+OBJS_CLIENT_BONUS = $(SRCS_CLIENT_BONUS:.c=.o)
+
+
+NAME_SERVER = server
+NAME_CLIENT = client
+NAME_SERVER_BONUS = server_bonus
+NAME_CLIENT_BONUS = client_bonus
+
+all: $(LIBFT) $(PRINTF) $(NAME_SERVER) $(NAME_CLIENT)
+
+bonus: $(LIBFT) $(PRINTF) $(NAME_SERVER_BONUS) $(NAME_CLIENT_BONUS)
+
 
 $(LIBFT):
-	@echo "Checking libft repository..."
+	@echo "Checking LIBFT repository..."
 	@if [ ! -d "$(LIBFT_PATH)" ]; then \
-		echo "Cloning libft repository..."; \
-		git clone git@github.com:ilyasguney/libft.git $(LIBFT_PATH); \
+		echo "Cloning LIBFT repository..."; \
+		git clone https://github.com/ilyasguney/libft.git $(LIBFT_PATH); \
 	else \
-		echo "libft repository already exists, skipping clone."; \
+		echo "LIBFT repository already exists, skipping clone."; \
 	fi
-	@echo "Building libft library..."
+	@echo "Building LIBFT library..."
+	@make -C $(LIBFT_PATH)
+
 
 $(PRINTF):
 	@echo "Checking printf repository..."
@@ -34,17 +52,37 @@ $(PRINTF):
 	@echo "Building printf library..."
 	@make -C $(PRINTF_PATH)
 
+$(NAME_SERVER): $(OBJS_SERVER) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT) $(PRINTF) -o $(NAME_SERVER)
+
+
+$(NAME_CLIENT): $(OBJS_CLIENT) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT) $(PRINTF) -o $(NAME_CLIENT)
+
+
+$(NAME_SERVER_BONUS): $(OBJS_SERVER_BONUS) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJS_SERVER_BONUS) $(LIBFT) $(PRINTF) -o $(NAME_SERVER_BONUS)
+
+
+$(NAME_CLIENT_BONUS): $(OBJS_CLIENT_BONUS) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJS_CLIENT_BONUS) $(LIBFT) $(PRINTF) -o $(NAME_CLIENT_BONUS)
+
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	@rm -f $(OBJS) $(PRINTF)
 	@make clean -C $(PRINTF_PATH)
+	@make clean -C $(LIBFT_PATH)
+	@rm -rf $(OBJS_SERVER) $(OBJS_CLIENT) $(OBJS_SERVER_BONUS) $(OBJS_CLIENT_BONUS)
 
 fclean: clean
-	@rm -rf $(NAME) $(PRINTF)
 	@make fclean -C $(PRINTF_PATH)
+	@make fclean -C $(LIBFT_PATH)
+	@rm -rf $(NAME_SERVER) $(NAME_CLIENT) $(NAME_SERVER_BONUS) $(NAME_CLIENT_BONUS)
 	@rm -rf ft_printf
 	@rm -rf libft
-	@rm -rf mlx 
 
 re: fclean all
 
-.PHONY: all clean re fclean clear
+.PHONY: all clean re fclean bonus

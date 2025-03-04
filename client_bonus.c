@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilyas-guney <ilyas-guney@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 02:14:24 by ilyas-guney       #+#    #+#             */
-/*   Updated: 2025/03/04 03:01:48 by ilyas-guney      ###   ########.fr       */
+/*   Updated: 2025/03/04 03:02:35 by ilyas-guney      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 volatile sig_atomic_t signal_check = 0;
 
@@ -30,7 +30,7 @@ void	bit_converter(int server_pid, char *str)
 	i = -1;
 	while (str[++i])
 	{
-		bit = 7;
+		bit = 8;
 		while (--bit >= 0)
 		{
 			signal_check = 0;
@@ -42,6 +42,8 @@ void	bit_converter(int server_pid, char *str)
 				pause();
 		}
 	}
+    if (str[0] != '\n')
+		ft_printf("Message received.\n");
 }
 
 int main(int ac, char *av[])
