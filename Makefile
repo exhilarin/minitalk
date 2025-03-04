@@ -30,14 +30,14 @@ bonus: $(LIBFT) $(PRINTF) $(NAME_SERVER_BONUS) $(NAME_CLIENT_BONUS)
 
 
 $(LIBFT):
-	@echo "Checking LIBFT repository..."
+	@echo "Checking libft repository..."
 	@if [ ! -d "$(LIBFT_PATH)" ]; then \
-		echo "Cloning LIBFT repository..."; \
+		echo "Cloning libft repository..."; \
 		git clone https://github.com/ilyasguney/libft.git $(LIBFT_PATH); \
 	else \
-		echo "LIBFT repository already exists, skipping clone."; \
+		echo "libft repository already exists, skipping clone."; \
 	fi
-	@echo "Building LIBFT library..."
+	@echo "Building libft library..."
 	@make -C $(LIBFT_PATH)
 
 
