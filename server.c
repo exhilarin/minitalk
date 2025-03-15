@@ -6,7 +6,7 @@
 /*   By: ilyas-guney <ilyas-guney@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 02:17:07 by ilyas-guney       #+#    #+#             */
-/*   Updated: 2025/03/04 03:56:26 by ilyas-guney      ###   ########.fr       */
+/*   Updated: 2025/03/15 04:14:03 by ilyas-guney      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int main()
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 		return (ft_printf("sigaction() call failed.\n"), 1);
-	server_pid = getppid();
+	server_pid = getpid();
 	ft_printf("Server PID: %d\n", server_pid);
 	while (1)
 		pause();
