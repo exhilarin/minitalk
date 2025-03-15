@@ -183,5 +183,11 @@ Sunucu çıktısı:
 Hello, World!
 ```
 
+# **📌 Özet**
+- **İstemci, mesajı tek tek bitlere ayırır ve sunucuya gönderir.**
+- **Her bit gönderildikten sonra sunucunun onay sinyalini bekler.**
+- **Sunucu, bitleri toplar ve karakterleri oluşturup ekrana yazdırır.**
+- **Bu sistem sayesinde, sinyaller kullanılarak IPC (Inter-Process Communication) sağlanır.**
+
 🚀 **Artık Minitalk projeniz hazır!** 🚀
 
