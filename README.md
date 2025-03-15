@@ -150,7 +150,7 @@ int main(int ac, char *av[])
     {
         server_pid = ft_atoi(av[1]);
         if (kill(server_pid, 0) == -1 || server_pid > 4194304 || server_pid == -1)
-            return(ft_printf("Invalid PID\n"), 0);
+            return(ft_printf("Invalid PID\n"), 1);
 
         str = av[2];
         signal(SIGUSR1, signal_handler);
