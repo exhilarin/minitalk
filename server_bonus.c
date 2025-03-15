@@ -6,7 +6,7 @@
 /*   By: iguney <iguney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:29:52 by iguney            #+#    #+#             */
-/*   Updated: 2025/03/15 15:34:09 by iguney           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:11:15 by iguney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	main(void)
 	struct sigaction	sa;
 	pid_t				server_pid;
 
+	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &bit_receiver;
-	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 		return (ft_printf("sigaction() call failed.\n"), 1);

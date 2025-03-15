@@ -6,7 +6,7 @@
 /*   By: iguney <iguney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:29:58 by iguney            #+#    #+#             */
-/*   Updated: 2025/03/15 15:33:28 by iguney           ###   ########.fr       */
+/*   Updated: 2025/03/15 16:49:48 by iguney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int	main(int ac, char *av[])
 		bit_converter(server_pid, "\n");
 	}
 	else
-		ft_printf("1. arg: %s 2. arg: PID, 3. arg: ""message""\n", av[0]);
+		ft_printf("Error: %s - Usage: <program> <PID> <message>\n", av[0]);
 	return (0);
 }
