@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilyas-guney <ilyas-guney@student.42.fr>    +#+  +:+       +#+        */
+/*   By: iguney <iguney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 02:17:07 by ilyas-guney       #+#    #+#             */
-/*   Updated: 2025/03/15 04:14:03 by ilyas-guney      ###   ########.fr       */
+/*   Created: 2025/03/15 15:29:35 by iguney            #+#    #+#             */
+/*   Updated: 2025/03/15 15:31:02 by iguney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	bit_receiver(int signal, siginfo_t *info, void *context)
 	(void)context;
 	if (signal == SIGUSR2)
 		c = c << 1;
-	else if(signal == SIGUSR1)
+	else if (signal == SIGUSR1)
 		c = (c << 1) | 1;
 	i++;
 	if (i == 7)
@@ -32,7 +32,7 @@ void	bit_receiver(int signal, siginfo_t *info, void *context)
 	kill(info->si_pid, SIGUSR1);
 }
 
-int main()
+int	main(void)
 {
 	struct sigaction	sa;
 	pid_t				server_pid;
